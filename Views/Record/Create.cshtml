@@ -1,0 +1,48 @@
+﻿@model ScanInRecords.Models.Record
+
+<h4>Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="postForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CardId" class="control-label"></label>
+                <input asp-for="CardId" class="form-control" />
+                <span asp-validation-for="CardId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="button" id="addBtn" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="itemlist">
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#addBtn").click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("Create", "Record")',
+                    type: "POST",
+                    data: $("#postForm").serialize(),
+                    success: function (data) {
+                        $("#itemlist").html(data);
+                        $("#postForm")[0].reset();
+                    },
+                    error: function () {
+                        alert("Failed to save data. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+}

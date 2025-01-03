@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ScanInRecords.Models.Record>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Record List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CardId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScanInTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScanInTime)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
